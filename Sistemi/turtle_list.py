@@ -8,11 +8,13 @@ turtle.color("red","blue")
 turtle.speed(1)
 
 for k in range(50):
-    if (random.random()<=0.25):
+    number=random.random()
+
+    if (number <= 0.25):
         direction_list +="f"
-    elif (random.random()>0.25 and random.random() <=0.5):
+    elif (number >0.25 and number <=0.5):
         direction_list +="b"
-    elif (random.random()>0.5 and random.random() <=0.75):
+    elif (number >0.5 and number <=0.75):
         direction_list += "l"
     else:
         direction_list += "r"
