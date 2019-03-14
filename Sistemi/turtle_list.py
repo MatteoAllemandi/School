@@ -19,12 +19,12 @@ for k in range(50):
     else:
         direction_list += "r"
 
-for k in range(len(direction_list)):
-    if (direction_list[k]=="f"):
+for k in direction_list:
+    if (k =="f"):
         turtle.forward(passo)
-    elif (direction_list[k]=="b"):
+    elif (k =="b"):
         turtle.back(passo)
-    elif (direction_list[k]=="l"):
+    elif (k =="l"):
         turtle.left(gradi)
     else:
         turtle.right(gradi)
