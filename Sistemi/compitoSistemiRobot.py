@@ -113,4 +113,4 @@ graph,dim = generateGraph(adj_dict)
 dijkstra(graph,start,finish,dim,True)
 
 
-calcolaPercorsi(graph,dim,start)
+#calcolaPercorsi(graph,dim,start)
