@@ -1,0 +1,95 @@
+def countNodesGetPosition(graph):
+    nodeNumber = 0
+    dict_pos = {}
+    cnt = 0
+    for i in range(len(graph)):
+        for k in range(len(graph)):
+            pos_list = []
+            if graph[i][k]==True:
+                nodeNumber+=1
+                pos_list.append(i)
+                pos_list.append(k)
+                dict_pos[cnt] = pos_list
+                cnt+=1
+
+    return nodeNumber,dict_pos
+
+def printGraph(graph):
+    print("----------------------------------------")
+    print("matrice delle adiacenze")
+    for i in graph:
+        print(i)
+
+def printAdj_dict(adj_dict):
+    print("----------------------------------------")
+    print("dizionario delle adiacenze")
+    for key,value in adj_dict.items():
+            print("%s --> %s" % (key,sorted(value)))
+
+def printCoordinates(dict_pos):
+    print("----------------------------------------")
+    for key2,value2 in dict_pos.items():
+        print("coordinate nodo %s --> %s" % (key2,value2))
+        
+
+def createDictionary(graph):
+    _,dict_pos = countNodesGetPosition(graph)
+    adj_dict = {}
+    counter = 0
+    printCoordinates(dict_pos)
+    
+    for key2,value2 in dict_pos.items():
+        
+
+        r,c = value2[0],value2[1]
+        near_list = []
+
+        if (r+1)<len(graph) and graph[r+1][c] == True:
+            for key,value in dict_pos.items():
+                if (value[0] == r+1 and value[1] == c):
+                    near_list.append(key)
+                    
+
+        if (c+1)<len(graph) and graph[r][c+1] == True:
+            for key,value in dict_pos.items():
+                if (value[0] == r and value[1] == c+1):
+                    near_list.append(key)
+                    
+        
+        if (r-1)>=0 and graph[r-1][c] == True:
+            for key,value in dict_pos.items():
+                if (value[0] == r-1 and value[1] == c):
+                    near_list.append(key)
+                    
+        
+        if (c-1)>=0 and graph[r][c-1] == True:
+            for key,value in dict_pos.items():
+                if (value[0] == r and value[1] == c-1):
+                    near_list.append(key)
+                    
+
+        adj_dict[counter] = near_list
+        counter+=1
+
+    return adj_dict
+    
+    
+
+
+def main():
+    graph = [[False,True,False,True,False,True],
+             [True,False,True,True,False,True],
+             [True,True,False,False,True,True],
+             [True,False,True,False,True,True],
+             [False,True,False,True,False,True],
+             [False,True,True,False,True,False]]
+
+    nodeNumber,_ = countNodesGetPosition(graph)
+    printGraph(graph)
+    adj_dict = createDictionary(graph)
+    
+    printAdj_dict(adj_dict)
+
+main()
+
+
