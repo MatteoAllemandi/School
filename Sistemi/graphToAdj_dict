@@ -76,13 +76,13 @@ def createDictionary(graph):
     
 
 
-def main():
-    graph = [[False,True,False,True,False,True],
+def getDictionary(graph):
+    '''graph = [[False,True,False,True,False,True],
              [True,False,True,True,False,True],
              [True,True,False,False,True,True],
              [True,False,True,False,True,True],
              [False,True,False,True,False,True],
-             [False,True,True,False,True,False]]
+             [False,True,True,False,True,False]]'''
 
     nodeNumber,_ = countNodesGetPosition(graph)
     printGraph(graph)
@@ -90,6 +90,5 @@ def main():
     
     printAdj_dict(adj_dict)
 
-main()
 
 
