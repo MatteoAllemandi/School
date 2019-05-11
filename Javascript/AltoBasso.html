@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AltoBasso</title>
+	<script type="text/javascript">
+		let randomNumber=generateNumber();
+		let cont=0;
+
+		function generateNumber(){
+			let valore = Math.floor(Math.random()*100);
+			//console.log(valore)
+			return valore;
+		}
+
+		function clear(){
+			document.getElementById('insert').value = '';
+		}
+
+		function print(cont){
+			msgResult="hai indovinato in " + cont + " tentativi";
+			document.getElementById("output").innerHTML=msgResult;
+		}
+
+		function checkNumber(){
+			var value = parseInt(document.getElementById("insert").value);
+			clear();
+			console.log(randomNumber)
+
+			if(value < randomNumber){
+				window.alert("il numero è piu alto");
+				cont = cont+1;
+			}
+
+			if(value > randomNumber){
+				window.alert("il numero è piu basso");
+				cont = cont+1;
+			}
+
+			if(value == randomNumber){
+				window.alert("hai indovinato!!");
+				print(cont);
+			}
+
+		}
+
+		function reload(){
+			window.location.reload();
+		}
+
+	</script>
+
+</head>
+<body>
+	<form id="form1">
+		<font color="orange" size="25px">Inserisci un un numero e premi il pulsante per controllare</font><br>
+		<input type="button" id="btnReload" onclick="reload()" value="ricarica">
+		<input type="button" id="btnStart" onclick="checkNumber()" value="controlla"><blockquote></blockquote>
+		<input type="text" id="insert">
+	</form>
+	<p style="color:red; size: 15px;" id="output"></p>
+</body>
+</html>
