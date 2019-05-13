@@ -5,6 +5,7 @@
 	<script type="text/javascript">
 		let randomNumber=generateNumber();
 		let cont=0;
+		vector = new Array();
 
 		function generateNumber(){
 			let valore = Math.floor(Math.random()*100);
@@ -17,13 +18,15 @@
 		}
 
 		function print(cont){
-			msgResult="hai indovinato in " + cont + " tentativi";
+			msgResult="hai indovinato in " + cont + " tentativi" + "--> " + vector.toString();
 			document.getElementById("output").innerHTML=msgResult;
+			
 		}
 
 		function checkNumber(){
 			var value = parseInt(document.getElementById("insert").value);
 			clear();
+			vector.push(value);
 			console.log(randomNumber)
 
 			if(value < randomNumber){
