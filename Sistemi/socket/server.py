@@ -1,7 +1,7 @@
 import socket as sck
 
-HOST = "127.0.0.1"
-PORT = 50007
+HOST = "0.0.0.0" #"192.168.10.68"
+PORT = 1984
 
 STOP = "stop"
 
@@ -14,9 +14,13 @@ print("connected to " + str(addr))
 while 1:
     data = conn.recv(4096)
     print("received: --> " + str(data))
-    conn.send(data)
+
     if not data: break
     if data==STOP.encode() :
         break
+
+    testo = input("inserisci stringa: ")
+    conn.send(testo.encode())
+
 
 conn.close()
