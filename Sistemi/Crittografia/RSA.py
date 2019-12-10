@@ -3,7 +3,7 @@ import math
 import random
 import numpy as np 
 
-def isPrime(n):
+def isPrime(n):                             #controlla se il numero è primo 
     for p in range(2, int(np.sqrt(n)) + 1):
         if (n % p == 0):
             return False
@@ -27,7 +27,7 @@ def trovaD(c,m):                #trova un numero compreso fra 0 ed m il cui modu
 def codifica(l,c,n):        #codifica del numero da inviare 
     return ((l**c)%n)
 
-def decodifica(lc,d,n):     #ðecodifica del numero codificato 
+def decodifica(lc,d,n):     #Decodifica del numero codificato 
     return ((lc**d)%n)
 
 def main():
@@ -43,11 +43,11 @@ def main():
         q = int(input("inserisci numero Q: "))
         prime = isPrime(q)
 
-    n=p*q     
-    m = mcm(p-1,q-1)
-    c = trovaC(m)
+    n=p*q                   #trovo N
+    m = mcm(p-1,q-1)        #trovo M
+    c = trovaC(m)           #chiamata alla funzione per trovare C
 
-    if c == -1:
+    if c == -1:             #se C non viene trovato, termina il programma
         print("errore")
         exit(0)
     else:
@@ -55,9 +55,11 @@ def main():
         print(f"n-->{n}\nc --> {c}\nd--> {d}\nm--> {m}\n")
 
     l = 12
-    print(f"lettera da codificare ---> {l}")
+    print(f"lettera da codificare ---> {l}")        
 
     lc = codifica(l,c,n)
-    print(f"lettera codificata ---> {lc}")
+    print(f"lettera codificata ---> {c}")       #codifica la lettera usando le chiavi trovate   
+
+    #print(str(decodifica(lc,d,n))) stampa eventuale decodifica della lettera
 
 main()
