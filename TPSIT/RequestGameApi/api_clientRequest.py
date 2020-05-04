@@ -16,8 +16,9 @@ def downloadImage(id):
         sqliteConnection = sqlite3.connect('gamesDB.db')            #connect to database
         cursor = sqliteConnection.cursor()
 
-        cursor.execute(f"SELECT background_image,nome FROM mostPopular WHERE idCampo = {id}")       #get name and link from the db for background img download
+        cursor.execute(f"SELECT background_image,nome FROM mostPopular WHERE id = {id}")       #get name and link from the db for background img download
         fetch = cursor.fetchall()
+        print(f"---->{fetch}")
         img_link = fetch[0][0]  #split data in name and link
         name = fetch[0][1]
         
@@ -80,7 +81,7 @@ def GetDataFromDB():
         sqliteConnection = sqlite3.connect('gamesDB.db')
         cursor = sqliteConnection.cursor()
 
-        cursor.execute("SELECT nome,dataRilascio,rating FROM mostPopular")         #get data from the most popular games in the db 
+        cursor.execute("SELECT nome,dataRilascio,rating,id FROM mostPopular")         #get data from the most popular games in the db 
         ranking = cursor.fetchall()
 
     except sqlite3.Error as error:
@@ -104,7 +105,7 @@ def main():
         if selection == 2:
             ranking = GetDataFromDB() 
             for i,val in enumerate(ranking):
-                print(f"{i+1} posto --> nome: {val[0]}, rilasciato nel {val[1]}, rating: {val[2]}\n")
+                print(f"{i+1} posto --> nome: {val[0]}, rilasciato nel {val[1]}, rating: {val[2]}, ID = {val[3]}\n")
         if selection == 3:
             downloadImage(int(input("\n\ninserisci id del gioco da cercare: ")))
         if selection == 4:
