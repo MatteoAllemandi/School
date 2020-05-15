@@ -1,6 +1,4 @@
-import socket
 import sqlite3
-from threading import Thread
 import flask
 from flask import jsonify,request
 from datetime import datetime
@@ -8,7 +6,6 @@ from datetime import datetime
 
 app = flask.Flask(__name__)
 app.config["debug"] = True
-
 
 @app.route('/api/v1/user_list', methods=['GET'])
 def api_all():
@@ -26,7 +23,7 @@ def api_all():
         if (sqliteConn):
             print('chiusura connessione DB')
             sqliteConn.close()
-    
+
     return jsonify(user)
 
 @app.route('/api/v1/send', methods=["GET"])
@@ -40,7 +37,7 @@ def inviare():
         mitt = int(request.args['id_mitt'])
     else:
         return("error: missing args")
-    
+
     try:
         sqliteConn = sqlite3.connect('chatDB.db')
         cursor = sqliteConn.cursor()
@@ -61,9 +58,9 @@ def inviare():
         if (sqliteConn):
             print('chiusura connessione DB')
             sqliteConn.close()
-    
-    return "<h1>Messaggio inviato</h1>"
-    
+
+    return "Messaggio inviato"
+
 
 @app.route('/api/v1/receive', methods=['GET'])
 def messageForMe():
@@ -76,14 +73,8 @@ def messageForMe():
             cursor.execute(f"SELECT sender_id,text,receiver_id,timestamp FROM messaggi WHERE received=0  AND receiver_id = {dest}")
             anyMessage = cursor.fetchall()
 
-            if len(anyMessage) == 0:
-                return "no message for you"
-            else:
-                mex = ""
-                for i in anyMessage:
-                    cursor.execute(f"SELECT utenti.name,utenti.surname FROM utenti,messaggi WHERE utenti.user_id = messaggi.id and messaggi.sender_id = {i[0]}")
-                    mitt = cursor.fetchall()
-                    mex = mex + "messaggio ricevuto da " + mitt[0][0] + " " + mitt[0][1] + "--> " + i[1] + " <-- alle ore " + str(i[3]) + "\n"
+            if len(anyMessage) != 0:
+                for i in anyMessage:               
                     cursor.execute(f'''UPDATE messaggi 
                                         SET received = 1 
                                         WHERE messaggi.timestamp < datetime('now') and messaggi.receiver_id = {i[2]}''')
@@ -91,7 +82,7 @@ def messageForMe():
                     sqliteConn.commit()
 
         except sqlite3.Error as error:
-            print("Error: " + error)
+            print(error)
 
         finally:
             if (sqliteConn):
@@ -99,5 +90,7 @@ def messageForMe():
                 sqliteConn.close()
     else:
         return "invalid user id"
-    return mex
-app.run(host='0.0.0.0',port='8082',debug = True)
+
+    return jsonify(anyMessage)
+    
+app.run(host="0.0.0.0", port=8082, debug=True) 
