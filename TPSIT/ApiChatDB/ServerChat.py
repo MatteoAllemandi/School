@@ -4,11 +4,11 @@ from threading import Thread
 import flask
 from flask import jsonify,request
 from datetime import datetime
-import threading
 
 
 app = flask.Flask(__name__)
 app.config["debug"] = True
+
 
 @app.route('/api/v1/user_list', methods=['GET'])
 def api_all():
@@ -62,7 +62,7 @@ def inviare():
             print('chiusura connessione DB')
             sqliteConn.close()
     
-    return "Messaggio inviato"
+    return "<h1>Messaggio inviato</h1>"
     
 
 @app.route('/api/v1/receive', methods=['GET'])
@@ -100,4 +100,4 @@ def messageForMe():
     else:
         return "invalid user id"
     return mex
-app.run()
+app.run(host='0.0.0.0',port='8082',debug = True)
